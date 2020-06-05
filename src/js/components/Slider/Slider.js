@@ -78,6 +78,8 @@ export default class Slider extends Component {
 
                 </div>
                 <ControlOverlay
+                 isLeftArrowVisible={ this.state.slideIndex !=0}
+                 isRightArrowVisible={this.state.slideIndex !=2}
                     onLeftArrowClick={this.onLeftArrowClick}
                     onRightArrowClick={this.onRightArrowClick}
                 />
