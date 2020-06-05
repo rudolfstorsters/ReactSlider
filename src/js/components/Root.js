@@ -6,8 +6,20 @@ import Slider from './Slider';
 class Root extends Component {
     render() {
         return (
-            <div style={{overflowY: "hidden"}}>
-                <Slider />       
+            <div style={{ overflowY: "hidden" }}>
+                <Slider
+                    data={[
+                        <div>
+                            My first slide
+                        </div>,
+                        <div>
+                            My second slide
+                        </div>,
+                        <div>
+                            My third slide
+                        </div>,
+                    ]}
+                />
             </div>
         );
     }
