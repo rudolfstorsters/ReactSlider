@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
+import Slider from './Slider';
+
 class Root extends Component {
     constructor() {
         super();
@@ -22,15 +24,10 @@ class Root extends Component {
     }
     render() {
         return (
-            <div>
-                Hello React!
-                <form>
-                    <input
-                        type="text"
-                        value={this.state.value}
-                        onChange={this.handleChange}
-                    />
-                </form>
+            <div style={{
+                overflowY: "hidden"
+            }}>
+                <Slider />       
             </div>
         );
     }
