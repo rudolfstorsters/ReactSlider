@@ -4,6 +4,12 @@ import ControlOverlay from "./ControlOverlay.js"
 import Slide from "./Slide.js" 
 
 export default class Slider extends Component {
+    onLeftArrowClick = () =>{
+        console.log("left")
+    } 
+    onRightArrowClick = () =>{
+        console.log("right")
+    }
     renderItem = (item, index) => {
         return(
          <Slide key={index}>
@@ -24,10 +30,12 @@ export default class Slider extends Component {
                     flexDirection:"row",
                     width: "fit-content" 
                 }}>
-                    {this.props.data.map(this.renderItem)}
-                    
+                    {this.props.data.map(this.renderItem)} 
                 </div>
-                <ControlOverlay/>
+                <ControlOverlay 
+                    onLeftArrowClick={this.onLeftArrowClick} 
+                    onRightArrowClick={this.onRightArrowClick}
+                    />
             </div>
         )
     }

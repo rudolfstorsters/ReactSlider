@@ -1,16 +1,22 @@
 import React, { Component } from "react";
 
-import arrow from "./images/arrow.png"
+import arrow from "./images/arrow.png";
 
 const ARROW_SIZE = 50;
 
 export default class ControlOverlay extends Component {
+    onLeftArrowClick = () => {
+       this.props.onLeftArrowClick()
+    }
+    onRightArrowClick = () => {
+      this.props.onRightArrowClick()
+    }
     render() {
         return (
             <div>
                 <div>
-                    <img style={styles.leftArrowImg} src={arrow} />
-                    <img style={styles.rightArrowImg} src={arrow} />
+                    <img onClick={this.onLeftArrowClick} style={styles.leftArrowImg} src={arrow} />
+                    <img onClick={this.onRightArrowClick} style={styles.rightArrowImg} src={arrow} />
                 </div>
             </div>
         )

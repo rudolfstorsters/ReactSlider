@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
-import Slider from './Slider';
+import Slider from './Slider/Slider.js';
 
 class Root extends Component {
     render() {
