@@ -6,9 +6,13 @@ import Slide from "./Slide.js"
 export default class Slider extends Component {
     state = {
         slideIndex: 0
+
     }
+   
+    lastScrollPosition = 0
     goToSlide = (slideIndex) => {
         if (this.scrollView) {
+            this.lastScrollPosition = window.innerWidth * slideIndex
             this.scrollView.scroll(window.innerWidth * slideIndex, 0)
             this.setState({
                 slideIndex: slideIndex
@@ -29,6 +33,20 @@ export default class Slider extends Component {
             </Slide>
         )
     }
+    
+    
+    onTouchStart = () => {
+        this.lastScrollPosition = this.scrollView.scrollLeft
+    }
+    onTouchEnd = () => {
+        setTimeout(() => {
+            if (this.lastScrollPosition > this.scrollView.scrollLeft) {
+                this.goToSlide(this.state.slideIndex - 1)
+            } else {
+                this.goToSlide(this.state.slideIndex + 1)
+            }
+        }, 200);
+    }
     render() {
         return (
             <>
@@ -39,9 +57,12 @@ export default class Slider extends Component {
                 >
                     <div style={{
                         overflow: "scroll",
+                        overscrollBehaviorX: "none",
                         scrollBehavior: "smooth",
                         height: 500
                     }}
+                        onTouchStart={this.onTouchStart}
+                        onTouchEnd={this.onTouchEnd}
                         ref={(el) => { this.scrollView = el }}
                     >
                         <div style={{
