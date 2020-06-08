@@ -25,7 +25,7 @@ export default class Slider extends Component {
         this.goToSlide(this.state.slideIndex + 1)
     }
     onIndicatorClick = (indicatorIndex) => {
-        this.goToSlide(indicatorIndex)
+        this.goToSlide(indicatorIndex == indicatorIndex)
     }
     renderItem = (item, index) => {
         return (
