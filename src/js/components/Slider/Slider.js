@@ -8,7 +8,6 @@ export default class Slider extends Component {
     state = {
         slideIndex: 0
     }
-    lastScrollPosition = 0
     goToSlide = (slideIndex) => {
         if (this.scrollView) {
             this.lastScrollPosition = window.innerWidth * slideIndex
@@ -24,7 +23,6 @@ export default class Slider extends Component {
     onRightArrowClick = () => {
         this.goToSlide(this.state.slideIndex + 1)
     }
-   
     renderItem = (item, index) => {
         return (
             <Slide key={index}>
@@ -44,54 +42,32 @@ export default class Slider extends Component {
         )
     }
     onIndicatorClick = (slideIndex) => () => {
-        this.goToSlide(slideIndex)
-       }
-
-    onTouchStart = () => {
-        this.lastScrollPosition = this.scrollView.scrollLeft
+        this.goToSlide(slideIndex);
     }
-    onTouchEnd = () => {
-        setTimeout(() => {
-            if (this.lastScrollPosition > this.scrollView.scrollLeft) {
-                this.goToSlide(this.state.slideIndex - 1)
-            } else {
-                this.goToSlide(this.state.slideIndex + 1)
-            }
-        }, 200);
+    onScroll = () => {
+        const newIndex = Math.round(this.scrollView.scrollLeft / window.innerWidth);
+        if (newIndex !== this.state.slideIndex) {
+            this.setState({
+                slideIndex: newIndex
+            })
+        }
     }
     render() {
         return (
             <>
-                <div style={{
-                    position: "relative",
-                    width: "100vw",
-                }}
+                <div style={styles.root}
                 >
-                    <div style={{
-                        overflow: "scroll",
-                        overscrollBehaviorX: "none",
-                        scrollBehavior: "smooth",
-                        height: 500
-                    }}
-                        onTouchStart={this.onTouchStart}
-                        onTouchEnd={this.onTouchEnd}
+                    <div style={styles.scrollContainer}
+                        onScroll={this.onScroll}
                         ref={(el) => { this.scrollView = el }}
                     >
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            width: "fit-content",
-                        }}
+                        <div style={styles.content}
                         >
                             {this.props.data.map(this.renderItem)}
                         </div>
                     </div>
                 </div>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center"
-                }}>
+                <div style={styles.indicator}>
                     {this.props.data.map(this.renderIndicator)}
                 </div>
                 <ControlOverlay
@@ -103,4 +79,29 @@ export default class Slider extends Component {
             </>
         )
     }
+}
+const styles = {
+    root: {
+        position: "relative",
+        width: "100vw",
+    },
+    scrollContainer: {
+        overflow: "scroll",
+        overscrollBehaviorX: "none",
+        scrollBehavior: "smooth",
+        height: 500,
+        scrollSnapType: "x mandatory",
+        scrollSnapDestination: "0 0",
+        scrollSnapPointsX: "repeat(100vw)"
+    },
+    content: {
+        display: "flex",
+        flexDirection: "row",
+        width: "fit-content",
+    },
+    indicator:{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center"
+}
 }

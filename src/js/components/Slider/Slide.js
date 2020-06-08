@@ -6,7 +6,8 @@ export default class Slide extends Component {
             <div style={{
                 width:"100vw",
                 height: 500,
-                background: "rgb(235, 101, 13)"
+                background: "rgb(235, 101, 13)",
+                scrollSnapAlign: "start"
             }}>
                 {this.props.children}
             </div>
