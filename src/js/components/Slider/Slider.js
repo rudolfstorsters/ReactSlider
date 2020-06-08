@@ -24,9 +24,7 @@ export default class Slider extends Component {
     onRightArrowClick = () => {
         this.goToSlide(this.state.slideIndex + 1)
     }
-    onIndicatorClick = (indicatorIndex) => {
-        this.goToSlide(indicatorIndex == indicatorIndex)
-    }
+   
     renderItem = (item, index) => {
         return (
             <Slide key={index}>
@@ -40,10 +38,15 @@ export default class Slider extends Component {
             <Indicator
                 key={index}
                 isActive={isActive}
+                onIndicatorClick={this.onIndicatorClick(index)}
             >
             </Indicator>
         )
     }
+    onIndicatorClick = (slideIndex) => () => {
+        this.goToSlide(slideIndex)
+       }
+
     onTouchStart = () => {
         this.lastScrollPosition = this.scrollView.scrollLeft
     }
