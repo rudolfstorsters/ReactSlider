@@ -18,6 +18,9 @@ class Root extends Component {
                         <div>
                             My third slide
                         </div>,
+                        <div>
+                        My fourth slide
+                    </div>,
                     ]}
                 />
             </div>

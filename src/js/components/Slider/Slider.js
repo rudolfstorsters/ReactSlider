@@ -2,13 +2,12 @@ import React, { Component } from "react"
 
 import ControlOverlay from "./ControlOverlay.js"
 import Slide from "./Slide.js"
+import Indicator from "./Indicator.js"
 
 export default class Slider extends Component {
     state = {
         slideIndex: 0
-
     }
-   
     lastScrollPosition = 0
     goToSlide = (slideIndex) => {
         if (this.scrollView) {
@@ -24,7 +23,9 @@ export default class Slider extends Component {
     }
     onRightArrowClick = () => {
         this.goToSlide(this.state.slideIndex + 1)
-
+    }
+    onIndicatorClick = (indicatorIndex) => {
+        this.goToSlide(indicatorIndex)
     }
     renderItem = (item, index) => {
         return (
@@ -33,8 +34,16 @@ export default class Slider extends Component {
             </Slide>
         )
     }
-    
-    
+    renderIndicator = (v, index) => {
+        const isActive = this.state.slideIndex == index
+        return (
+            <Indicator
+                key={index}
+                isActive={isActive}
+            >
+            </Indicator>
+        )
+    }
     onTouchStart = () => {
         this.lastScrollPosition = this.scrollView.scrollLeft
     }
@@ -70,16 +79,21 @@ export default class Slider extends Component {
                             flexDirection: "row",
                             width: "fit-content",
                         }}
-
                         >
                             {this.props.data.map(this.renderItem)}
                         </div>
                     </div>
-
+                </div>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center"
+                }}>
+                    {this.props.data.map(this.renderIndicator)}
                 </div>
                 <ControlOverlay
-                 isLeftArrowVisible={ this.state.slideIndex !=0}
-                 isRightArrowVisible={this.state.slideIndex !=2}
+                    isLeftArrowVisible={this.state.slideIndex != 0}
+                    isRightArrowVisible={this.state.slideIndex != this.props.data.length - 1}
                     onLeftArrowClick={this.onLeftArrowClick}
                     onRightArrowClick={this.onRightArrowClick}
                 />

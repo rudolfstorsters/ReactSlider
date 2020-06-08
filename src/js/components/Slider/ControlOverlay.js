@@ -11,20 +11,23 @@ export default class ControlOverlay extends Component {
     onRightArrowClick = () => {
       this.props.onRightArrowClick()
     }
-    
     render() {
         return (
             <div>
                 <div>
-                
-                    {this.props.isLeftArrowVisible &&  <img onClick={this.onLeftArrowClick} style={styles.leftArrowImg} src={arrow} />}
-                    {this.props.isRightArrowVisible &&<img onClick={this.onRightArrowClick} style={styles.rightArrowImg} src={arrow} />}
+                    {this.props.isLeftArrowVisible && 
+                     <img onClick={this.onLeftArrowClick} 
+                     style={styles.leftArrowImg} src={arrow} 
+                     />}
+                    {this.props.isRightArrowVisible &&
+                     <img onClick={this.onRightArrowClick}
+                      style={styles.rightArrowImg} src={arrow} 
+                      />}
                 </div>
             </div>
         )
     }
 }
-// true && ...
 const styles = {
     leftArrowImg: {
         width: ARROW_SIZE,
